@@ -1,6 +1,6 @@
 {
   "name": "schedule-app",
-  "app_id": "",
+  "app_id": "730f0952",
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}
