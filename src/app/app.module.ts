@@ -13,6 +13,9 @@ import { GamePage } from '../pages/game/game';
 import { TournamentsPage } from '../pages/tournaments/tournaments';
 import { TeamHomePage } from '../pages/team-home/team-home';
 import { StandingsPage } from '../pages/standings/standings';
+import { ScheduleApiProvider } from '../providers/schedule-api/schedule-api';
+import { HttpClientModule } from '@angular/common/http';
+import { CommonProvider } from '../providers/common/common';
 
 @NgModule({
   declarations: [
@@ -27,6 +30,7 @@ import { StandingsPage } from '../pages/standings/standings';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
@@ -43,7 +47,9 @@ import { StandingsPage } from '../pages/standings/standings';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    ScheduleApiProvider,
+    CommonProvider
   ]
 })
 export class AppModule {}
