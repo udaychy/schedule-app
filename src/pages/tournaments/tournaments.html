@@ -8,6 +8,11 @@
 
   <ion-navbar>
     <ion-title>Select a Tournament</ion-title>
+    <ion-buttons end>
+        <button ion-button icon-only (click)="goHome()">
+            <ion-icon name="home"></ion-icon>
+        </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -15,11 +20,8 @@
 
 <ion-content>
   <ion-list>
-    <button ion-item (click)="itemTapped()">
-      Tournament 1
+    <button *ngFor="let tournament of tournaments" ion-item (click)="itemTapped($event, tournament)">
+      {{tournament.name}}
     </button>
-    <button ion-item (click)="itemTapped()">
-        Tournament 2
-      </button>
   </ion-list>
 </ion-content>

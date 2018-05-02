@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { TeamHomePage } from '../team-home/team-home';
+import { ScheduleApiProvider } from '../../providers/schedule-api/schedule-api';
+import { CommonProvider } from '../../providers/common/common';
 
 @Component({
   selector: 'page-teams',
@@ -8,20 +10,33 @@ import { TeamHomePage } from '../team-home/team-home';
 })
 export class TeamsPage {
 
-  public teams = [
-    {id: 1, name: 'Team 1'},
-    {id: 2, name: 'Team 2'},
-    {id: 3, name: 'Team 3'}
-  ]
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  public teams = [];
+
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private scheduleApi: ScheduleApiProvider,
+    private commonService: CommonProvider ) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TeamsPage');
+
+    this.commonService.displayLoader('Loading Teams')
+    .then((loaderRef) => {
+      let selectedTournament = this.navParams.data;
+      this.scheduleApi.getTournamentData(selectedTournament.id).subscribe(data => {
+        this.teams = data.teams;
+        loaderRef.dismiss();
+      })
+    })
   }
 
   itemTapped($event, team){
     this.navCtrl.push(TeamHomePage, team);
   }
 
+  goHome(){
+    this.navCtrl.popToRoot();
+  }
 }

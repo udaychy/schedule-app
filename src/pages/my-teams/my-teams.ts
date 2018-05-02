@@ -15,7 +15,8 @@ import { TournamentsPage } from '../tournaments/tournaments';
 })
 export class MyTeamsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController, public navParams: NavParams) {
   }
 
   goToTournaments(){

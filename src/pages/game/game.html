@@ -8,11 +8,18 @@
 
   <ion-navbar>
     <ion-title>game</ion-title>
+    <button ion-button menuToggle icon-only end>
+      <ion-icon name="menu"></ion-icon>
+    </button>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+  <h3>Home Team</h3>
+  <button ion-button (click)="teamTapped(game.team1Id)">{{game.team1}}</button>
 
+  <h3>Away Team</h3>
+  <button ion-button (click)="teamTapped(game.team2Id)">{{game.team2}}</button>
 </ion-content>
