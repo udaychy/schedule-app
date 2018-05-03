@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { TeamHomePage } from '../team-home/team-home';
 import { ScheduleApiProvider } from '../../providers/schedule-api/schedule-api';
 import { CommonProvider } from '../../providers/common/common';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'page-teams',
@@ -10,7 +11,8 @@ import { CommonProvider } from '../../providers/common/common';
 })
 export class TeamsPage {
 
-  public teams = [];
+  public allTeams = [];
+  public allTeamDivisions = [];
 
   constructor(
     public navCtrl: NavController,
@@ -26,7 +28,15 @@ export class TeamsPage {
     .then((loaderRef) => {
       let selectedTournament = this.navParams.data;
       this.scheduleApi.getTournamentData(selectedTournament.id).subscribe(data => {
-        this.teams = data.teams;
+        this.allTeams = data.teams;
+        this.allTeamDivisions = _.chain(data.teams)
+        .groupBy('division')
+        .toPairs()
+        .map(item => _.zipObject(['divisionName', 'divisionTeams'], item))
+        .value();
+        console.log(_.chain(data.teams).groupBy('division').value());
+        console.log(_.chain(data.teams).groupBy('division').toPairs().value());
+        console.log(this.allTeamDivisions);
         loaderRef.dismiss();
       })
     })

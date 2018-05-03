@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { ScheduleApiProvider } from '../../providers/schedule-api/schedule-api';
 import * as _ from 'lodash';
 import { GamePage } from '../game/game';
+import moment from 'moment';
 
 @Component({
   selector: 'page-team-details',
@@ -12,7 +13,11 @@ export class TeamDetailsPage {
 
   public team: any = {};
   public games: any = [];
+  public allGames: any = [];
   public tourneyData: any = {};
+  public teamStanding: any = {};
+  public dateFilter: any = {};
+  
 
   constructor(
     public navCtrl: NavController,
@@ -23,12 +28,13 @@ export class TeamDetailsPage {
     console.log('ionViewDidLoad TeamDetailsPage');
 
     this.team = this.navParams.data;
+    this.teamStanding
     this.tourneyData = this.scheduleApi.currentTourney;
 
     this.games = _.chain(this.tourneyData.games)
       .filter(g => g.team1Id === this.team.id || g.team2Id === this.team.id)
       .map(g => {
-        let isTeam1 = (g.team1Id === this.team.id);
+        let isTeam1 = (g.team1Id == this.team.id);
         let opponentName = isTeam1 ? g.team2 : g.team1;
         let scoreDisplay = this.getScoreDisplay(isTeam1, g.team1Score, g.team2Score);
         return {
@@ -43,6 +49,8 @@ export class TeamDetailsPage {
       })
       .value();
 
+      this.allGames = this.games;
+      this.teamStanding = _.find(this.tourneyData.standings, {'teamId': this.team.id});
       console.log(this.games);
   }
 
@@ -63,5 +71,9 @@ export class TeamDetailsPage {
 
     // As we are in a tab nav, we need to move up to the main parent nav
     this.navCtrl.parent.parent.push(GamePage, sourceGame);
+  }
+
+  dateChanged(){
+    this.games=_.filter(this.allGames, g=> moment(g.time).isSame(this.dateFilter, 'day'));
   }
 }

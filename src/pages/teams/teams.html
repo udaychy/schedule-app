@@ -19,7 +19,15 @@
 
 
 <ion-content padding>
-  <button *ngFor="let team of teams" ion-item (click)="itemTapped($event, team)">
+  <ion-list>
+    <ion-item-group *ngFor="let groupItem of allTeamDivisions">
+        <ion-item-divider color="light">{{groupItem.divisionName}}</ion-item-divider>
+        <ion-item *ngFor="let item of groupItem.divisionTeams" (click)="itemTapped($event, item)">
+          {{item.name}}
+        </ion-item>
+      </ion-item-group>
+  </ion-list>
+  <!-- <button *ngFor="let team of allTeamDivisions" ion-item (click)="itemTapped($event, team)">
     {{team.name}}
-  </button>
+  </button> -->
 </ion-content>
