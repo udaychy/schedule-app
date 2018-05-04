@@ -16,6 +16,8 @@ import { StandingsPage } from '../pages/standings/standings';
 import { ScheduleApiProvider } from '../providers/schedule-api/schedule-api';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonProvider } from '../providers/common/common';
+import { UserSettingsProvider } from '../providers/user-settings/user-settings';
+import { IonicStorageModule } from '@ionic/storage';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,7 @@ import { CommonProvider } from '../providers/common/common';
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -49,7 +52,8 @@ import { CommonProvider } from '../providers/common/common';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ScheduleApiProvider,
-    CommonProvider
+    CommonProvider,
+    UserSettingsProvider
   ]
 })
 export class AppModule {}

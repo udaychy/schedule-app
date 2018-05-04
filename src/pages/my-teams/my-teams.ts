@@ -4,6 +4,7 @@ import { TournamentsPage } from '../tournaments/tournaments';
 import { ScheduleApiProvider } from '../../providers/schedule-api/schedule-api';
 import { CommonProvider } from '../../providers/common/common';
 import { TeamHomePage } from '../team-home/team-home';
+import { UserSettingsProvider } from '../../providers/user-settings/user-settings';
 
 /**
  * Generated class for the MyTeamsPage page.
@@ -18,23 +19,21 @@ import { TeamHomePage } from '../team-home/team-home';
 })
 export class MyTeamsPage {
 
-  public favorites: any = [{
-    tournamentId: '3dd50aaf-6b03-4497-b074-d81703f07ee8',
-    tournamentName: 'Cager Classic',
-    team: {coach: "James", division: "6th grade", id: 812, name: "Baltimore Stars"}
+  
+  public favorites: any = [];
 
-  }];
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private scheduleApi: ScheduleApiProvider,
-    private commonService: CommonProvider) {
+    private commonService: CommonProvider,
+    private userSettings: UserSettingsProvider) {
   }
 
-  goToTournaments(){
+  goToTournaments() {
     this.navCtrl.push(TournamentsPage)
   }
-  
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad MyTeamsPage');
   }
@@ -49,4 +48,9 @@ export class MyTeamsPage {
           })
       });
   }
+
+  ionViewDidEnter() {
+    this.favorites = this.userSettings.getAllFavorites()
+  }
+
 }

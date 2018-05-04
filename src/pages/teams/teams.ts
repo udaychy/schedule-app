@@ -49,4 +49,5 @@ export class TeamsPage {
   goHome(){
     this.navCtrl.popToRoot();
   }
+  
 }
