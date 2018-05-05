@@ -14,13 +14,19 @@
         </button>
     </ion-buttons>
   </ion-navbar>
+
+  <ion-toolbar>
+    <ion-searchbar placeholder="Search"
+                   [(ngModel)]="queryText"
+                   (ionInput)="updateTeams()"></ion-searchbar>
+  </ion-toolbar>
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
   <ion-list>
-    <ion-item-group *ngFor="let groupItem of allTeamDivisions">
-        <ion-item-divider color="light">{{groupItem.divisionName}}</ion-item-divider>
+    <ion-item-group *ngFor="let groupItem of teams">
+        <ion-item-divider color="secondary">{{groupItem.divisionName}}</ion-item-divider>
         <ion-item *ngFor="let item of groupItem.divisionTeams" (click)="itemTapped($event, item)">
           {{item.name}}
         </ion-item>

@@ -13,6 +13,8 @@ export class TeamsPage {
 
   public allTeams = [];
   public allTeamDivisions = [];
+  public teams = [];
+  public queryText: string;
 
   constructor(
     public navCtrl: NavController,
@@ -34,6 +36,8 @@ export class TeamsPage {
         .toPairs()
         .map(item => _.zipObject(['divisionName', 'divisionTeams'], item))
         .value();
+        this.teams = this.allTeamDivisions;
+
         console.log(_.chain(data.teams).groupBy('division').value());
         console.log(_.chain(data.teams).groupBy('division').toPairs().value());
         console.log(this.allTeamDivisions);
@@ -48,6 +52,19 @@ export class TeamsPage {
 
   goHome(){
     this.navCtrl.popToRoot();
+  }
+
+  updateTeams() {
+    let queryTextLower = _.trimStart(this.queryText.toLowerCase());
+    let filteredTeams = [];
+    _.forEach(this.allTeamDivisions, td => {
+      let teams = _.filter(td.divisionTeams, t => t.name.toLowerCase().includes(queryTextLower));
+      if (teams.length) {
+        filteredTeams.push({ divisionName: td.divisionName, divisionTeams: teams });
+      }
+    });
+
+    this.teams = filteredTeams;
   }
   
 }
