@@ -3,7 +3,7 @@
 
   <ion-navbar></ion-navbar>
   <ion-toolbar>
-    <ion-segment color="secondary" [(ngModel)]="divisionFilter" (ionChange)="filterDivision($event)">
+    <ion-segment color="secondary" [(ngModel)]="divisionFilter" (ionChange)="filterDivision()">
       <ion-segment-button value="division">Division</ion-segment-button>
       <ion-segment-button value="all">All</ion-segment-button>
     </ion-segment>
@@ -11,7 +11,7 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-list [virtualScroll]="standings" [approxItemHeight]="'132px'" [headerFn]="getStandingHeader">
+  <ion-list [virtualScroll]="standings" [approxItemHeight]="'110px'" [headerFn]="getStandingHeader">
 
     <ion-item-divider *virtualHeader="let header" color="secondary">
       {{ header }}

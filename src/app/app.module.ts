@@ -18,6 +18,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { CommonProvider } from '../providers/common/common';
 import { UserSettingsProvider } from '../providers/user-settings/user-settings';
 import { IonicStorageModule } from '@ionic/storage';
+import { MapsPage } from '../pages/maps/maps';
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   declarations: [
@@ -28,13 +30,17 @@ import { IonicStorageModule } from '@ionic/storage';
     GamePage,
     TournamentsPage,
     TeamHomePage,
-    StandingsPage
+    StandingsPage,
+    MapsPage
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBbsOlMryAHu2ESwHHSwrDBIUU7fiENNoM'
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -45,7 +51,8 @@ import { IonicStorageModule } from '@ionic/storage';
     GamePage,
     TournamentsPage,
     TeamHomePage,
-    StandingsPage
+    StandingsPage,
+    MapsPage
   ],
   providers: [
     StatusBar,
