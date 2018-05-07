@@ -4,6 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { MyTeamsPage } from '../pages/my-teams/my-teams';
 import { TournamentsPage } from '../pages/tournaments/tournaments';
+import { UserSettingsProvider } from '../providers/user-settings/user-settings';
 
 @Component({
   templateUrl: 'app.html'
@@ -18,7 +19,8 @@ export class MyApp {
   constructor(
     public platform: Platform,
     public statusBar: StatusBar,
-    public splashScreen: SplashScreen) {
+    public splashScreen: SplashScreen,
+    private userSetting: UserSettingsProvider) {
     this.initializeApp();
   }
 
@@ -29,6 +31,8 @@ export class MyApp {
       console.log('Platform ready from', readySource);
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.userSetting.initStorage()
+
     });
   }
 

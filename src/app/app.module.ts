@@ -20,6 +20,8 @@ import { UserSettingsProvider } from '../providers/user-settings/user-settings';
 import { IonicStorageModule } from '@ionic/storage';
 import { MapsPage } from '../pages/maps/maps';
 import { AgmCoreModule } from '@agm/core';
+import { SqlStorageProvider } from '../providers/sql-storage/sql-storage';
+import { SQLite } from '@ionic-native/sqlite';
 
 @NgModule({
   declarations: [
@@ -60,7 +62,9 @@ import { AgmCoreModule } from '@agm/core';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ScheduleApiProvider,
     CommonProvider,
-    UserSettingsProvider
+    UserSettingsProvider,
+    SQLite,
+    SqlStorageProvider
   ]
 })
 export class AppModule {}
